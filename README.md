@@ -76,3 +76,4 @@ Open your browser to `http://localhost:5173/`. Enter a topic you want to learn (
 ## 📝 License
 This project is open-source and available under the MIT License.
 # Maplio
+# Maplio
