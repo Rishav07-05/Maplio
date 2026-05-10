@@ -1,79 +1,62 @@
-# Maplio 🗺️
+# Maplio
 
-**Maplio** is an AI-powered visual knowledge mapping platform that transforms learning goals into structured, interactive skill architectures. 
+Maplio is a full-stack web application that generates interactive, visual roadmaps for learning objectives. It uses Google's Gemini AI to generate hierarchical learning paths and renders them using a custom recursive layout engine built on React Flow.
 
-Instead of generating simple text lists, Maplio connects to Google's Gemini AI to dynamically generate deep, multi-level hierarchical knowledge graphs rendered on an interactive, infinite canvas (inspired by the classic `roadmap.sh` aesthetic).
+## Architecture & Features
 
-## ✨ Features
+The application consists of a decoupled architecture:
+- **Node.js/Express Backend:** Interfaces with the Gemini AI model to generate structured JSON data representing topics and deeply nested subtopics based on user input.
+- **React/TypeScript Frontend:** Parses the JSON payload and maps it to a responsive, interactive infinite canvas.
 
-- **AI-Powered Generation:** Leverages Google's Gemini AI to instantly structure complete roadmaps based on any learning goal and skill level.
-- **Deeply Nested Graph Architecture:** Features a custom recursive layout engine built on top of React Flow, allowing topics to break down into infinitely nested subtopics.
-- **Classic Visual Style:** Nodes use a highly structured, flat-design aesthetic with thick borders, bright colors, and clear directional edge arrows.
-- **Interactive Canvas:** Zoom, pan, and dynamically expand or collapse nested layers of knowledge to keep the roadmap clean and readable.
-- **Production Ready:** Built with a modern, decoupled client-server architecture using TypeScript.
+**Key Technical Features:**
+- **Recursive Graph Layout:** A custom deterministic layout algorithm places the main topics in a central vertical spine while branching subtopics horizontally. Supports infinite nesting depths.
+- **Dynamic Node Rendering:** Custom React Flow nodes handle variable data states, including expandable/collapsible children and automatic edge routing.
+- **Structured AI Output:** Uses strict JSON schema enforcement to ensure the LLM consistently returns the required graph data structure.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 **Frontend:**
-- [React 18](https://react.dev/) + [Vite](https://vitejs.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/) (Styling)
-- [React Flow](https://reactflow.dev/) (Interactive canvas and node mapping)
-- [Redux Toolkit](https://redux-toolkit.js.org/) (Global state management)
+- React 18 & Vite
+- TypeScript
+- Tailwind CSS
+- React Flow
+- Redux Toolkit
 
 **Backend:**
-- [Node.js](https://nodejs.org/) + [Express](https://expressjs.com/)
-- [Google Generative AI SDK](https://ai.google.dev/) (Gemini Flash integration)
+- Node.js & Express
+- Google Generative AI SDK (Gemini Flash)
 
----
-
-## 🚀 Getting Started
+## Local Development Setup
 
 ### Prerequisites
-Make sure you have Node.js (v18+) and npm/yarn installed. You will also need a free Gemini API key from [Google AI Studio](https://aistudio.google.com/).
+- Node.js (v18 or higher)
+- A Gemini API key from Google AI Studio
 
-### 1. Clone the repository
-\`\`\`bash
-git clone https://github.com/yourusername/maplio.git
-cd maplio
-\`\`\`
+### Backend Configuration
+1. Navigate to the `backend` directory.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the `backend` directory with your API key:
+   ```env
+   PORT=5000
+   GEMINI_API_KEY=your_api_key_here
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-### 2. Setup the Backend
-Navigate to the backend directory, install dependencies, and setup your API key.
-\`\`\`bash
-cd backend
-npm install
-\`\`\`
+### Frontend Configuration
+1. Open a new terminal and navigate to the `frontend` directory.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
 
-Create a `.env` file in the `backend` directory and add your Gemini API key:
-\`\`\`env
-PORT=5000
-GEMINI_API_KEY=your_gemini_api_key_here
-\`\`\`
-
-Start the backend server:
-\`\`\`bash
-npm run dev
-\`\`\`
-*The server will start on http://localhost:5000.*
-
-### 3. Setup the Frontend
-Open a new terminal window, navigate to the frontend directory, and install dependencies.
-\`\`\`bash
-cd frontend
-npm install
-\`\`\`
-
-Start the frontend development server:
-\`\`\`bash
-npm run dev
-\`\`\`
-*The React app will start on http://localhost:5173.*
-
-### 4. Generate your first Roadmap!
-Open your browser to `http://localhost:5173/`. Enter a topic you want to learn (e.g., "Frontend Development" or "Machine Learning"), select your experience level, and click Generate!
-
-## 📝 License
-This project is open-source and available under the MIT License.
-# Maplio
-# Maplio
+The application will be accessible at `http://localhost:5173`.

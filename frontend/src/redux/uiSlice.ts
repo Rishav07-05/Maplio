@@ -6,8 +6,16 @@ type UiState = {
   selectedNodeId: string | null
 }
 
+const getInitialTheme = (): UiState['theme'] => {
+  if (typeof window === 'undefined') return 'light'
+  const stored = localStorage.getItem('maplio-theme')
+  if (stored === 'light' || stored === 'dark') return stored
+  if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) return 'dark'
+  return 'light'
+}
+
 const initialState: UiState = {
-  theme: 'light',
+  theme: getInitialTheme(),
   searchQuery: '',
   selectedNodeId: null,
 }
@@ -23,7 +31,7 @@ const uiSlice = createSlice({
       state.searchQuery = action.payload
     },
     setSelectedNode(state, action) {
-      state.selectedNodeId = action.payload
+      state.selectedNodeId = action.payload as string | null
     },
   },
 })

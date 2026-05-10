@@ -1,7 +1,9 @@
 import type { Roadmap, RoadmapRequest } from '../types/roadmap'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'
+
 export const generateRoadmap = async (payload: RoadmapRequest): Promise<Roadmap> => {
-  const response = await fetch('http://localhost:5000/generate-roadmap', {
+  const response = await fetch(`${API_BASE_URL}/generate-roadmap`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -13,13 +13,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { RootState, AppDispatch } from '../redux/store'
 import { generateGraph } from '../utils/graph'
 import { toggleExpanded } from '../redux/graphSlice'
+import { setSelectedNode } from '../redux/uiSlice'
 import { CustomNode, SubtopicNode } from './CustomNode'
 import { Map, Info } from 'lucide-react'
 
 const RoadmapCanvas: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const roadmapData = useSelector((state: RootState) => state.roadmap.data)
+  const nodeMeta = useSelector((state: RootState) => state.roadmap.nodeMeta)
   const expanded = useSelector((state: RootState) => state.graph.expanded)
+  const searchQuery = useSelector((state: RootState) => state.ui.searchQuery)
+  const theme = useSelector((state: RootState) => state.ui.theme)
 
   const [nodes, setNodes, onNodesChange] = useNodesState([])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
@@ -32,14 +36,21 @@ const RoadmapCanvas: React.FC = () => {
   // Regenerate graph whenever roadmapData or expanded state changes
   useEffect(() => {
     if (roadmapData && roadmapData.stages) {
-      const { nodes: layoutedNodes, edges: layoutedEdges } = generateGraph(roadmapData, expanded)
+      const { nodes: layoutedNodes, edges: layoutedEdges } = generateGraph(
+        roadmapData,
+        expanded,
+        nodeMeta,
+        searchQuery,
+        theme
+      )
       setNodes(layoutedNodes)
       setEdges(layoutedEdges)
     }
-  }, [roadmapData, expanded, setNodes, setEdges])
+  }, [roadmapData, expanded, nodeMeta, searchQuery, theme, setNodes, setEdges])
 
   const onNodeClick: NodeMouseHandler = useCallback(
     (_, node) => {
+      dispatch(setSelectedNode(node.id))
       if ((node.type === 'customNode' || node.type === 'subtopicNode') && node.data.hasSubtopics) {
         dispatch(toggleExpanded(node.id))
       }
@@ -49,7 +60,7 @@ const RoadmapCanvas: React.FC = () => {
 
   if (!roadmapData) {
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 bg-slate-50/50">
+      <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 maplio-canvas">
         <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mb-4 shadow-sm">
           <Map className="w-8 h-8 text-slate-300" />
         </div>
@@ -72,15 +83,16 @@ const RoadmapCanvas: React.FC = () => {
         fitViewOptions={{ padding: 0.2 }}
         minZoom={0.1}
         maxZoom={1.5}
-        className="bg-white"
+        className="maplio-canvas"
+        onPaneClick={() => dispatch(setSelectedNode(null))}
       >
-        <Background color="#cbd5e1" gap={24} size={1} />
-        <Controls className="bg-white shadow-md border-black border-2 rounded-md overflow-hidden [&>button]:border-b-2 [&>button]:border-black" />
+        <Background color={theme === 'dark' ? '#334155' : '#b5b9c5'} gap={26} size={1} />
+        <Controls className="maplio-flow-controls" />
         <MiniMap 
-          className="bg-white shadow-[4px_4px_0px_rgba(0,0,0,1)] border-[2px] border-black rounded-md"
+          className="maplio-mini-map"
           nodeColor={(n) => {
-            if (n.type === 'customNode') return '#ffe818'
-            if (n.type === 'subtopicNode') return '#ffdfa0'
+            if (n.type === 'customNode') return theme === 'dark' ? '#3b1a78' : '#ffe818'
+            if (n.type === 'subtopicNode') return theme === 'dark' ? '#78c7ff' : '#ffdfa0'
             return '#cbd5e1'
           }}
         />

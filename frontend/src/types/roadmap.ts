@@ -38,3 +38,28 @@ export type RoadmapRequest = {
   goal: string
   level: string
 }
+
+export type NodeMeta = {
+  title?: string
+  description?: string
+  tags?: string[]
+  status?: 'todo' | 'in-progress' | 'done'
+  link?: string
+  notes?: string
+}
+
+export type RoadmapHistoryItem = {
+  _id: string
+  goal: string
+  name?: string
+  roadmap: Roadmap
+  nodeMeta?: Record<string, NodeMeta>
+  isPublic?: boolean
+  shareId?: string
+  createdAt: string
+  updatedAt: string
+}
+
+export type RoadmapHistorySummary = Omit<RoadmapHistoryItem, 'roadmap' | 'nodeMeta'> & {
+  roadmap: Pick<Roadmap, 'title' | 'level' | 'estimated_duration'>
+}

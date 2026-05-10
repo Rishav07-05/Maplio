@@ -4,11 +4,11 @@ import { BrainCircuit, Sparkles } from 'lucide-react'
 
 const LoadingScreen: React.FC = () => {
   return (
-    <div className="absolute inset-0 bg-slate-50/80 backdrop-blur-sm z-50 flex items-center justify-center rounded-2xl">
+    <div className="absolute inset-0 maplio-overlay z-50 flex items-center justify-center rounded-2xl">
       <motion.div 
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white border border-slate-200 shadow-xl rounded-2xl p-8 max-w-sm w-full text-center flex flex-col items-center"
+        className="maplio-card maplio-card--floating rounded-2xl p-8 max-w-sm w-full text-center flex flex-col items-center"
       >
         <div className="relative w-20 h-20 mb-6 flex items-center justify-center">
           <motion.div
