@@ -58,6 +58,7 @@ const DashboardPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'create' | 'history'>('create')
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [shareUrl, setShareUrl] = useState<string | null>(null)
 
   const handleGenerate = () => {
     if (!goal.trim()) return
@@ -95,6 +96,7 @@ const DashboardPage: React.FC = () => {
           {
             roadmap,
             goal: goal || roadmap.title,
+            name: goal || roadmap.title,
             nodeMeta
           },
           token
@@ -105,6 +107,7 @@ const DashboardPage: React.FC = () => {
           {
             roadmap,
             goal: goal || roadmap.title,
+            name: goal || roadmap.title,
             nodeMeta
           },
           token
@@ -144,7 +147,17 @@ const DashboardPage: React.FC = () => {
       dispatch(setRoadmapId(updated._id))
       await dispatch(loadHistory({ token }))
       if (updated.shareId) {
-        await navigator.clipboard.writeText(`${window.location.origin}/shared/${updated.shareId}`)
+        const url = `${window.location.origin}/shared/${updated.shareId}`
+        setShareUrl(url)
+        try {
+          await navigator.clipboard.writeText(url)
+        } catch (clipboardError) {
+          setErrorMessage(
+            clipboardError instanceof Error
+              ? clipboardError.message
+              : 'Share link copied failed. Copy it manually below.'
+          )
+        }
       }
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Publish failed')
@@ -180,7 +193,7 @@ const DashboardPage: React.FC = () => {
   return (
     <div className="flex flex-col md:flex-row h-full w-full gap-4 relative">
       {/* Left Sidebar Control Panel */}
-      <div className="w-full md:w-96 flex-shrink-0 maplio-card rounded-2xl p-5 flex flex-col gap-5 relative z-10">
+      <div className="w-full md:w-96 flex-shrink-0 maplio-card maplio-sidebar maplio-control-panel rounded-2xl p-5 flex flex-col gap-5 relative z-10">
         <div className="flex items-center gap-2 maplio-tab-wrap p-1 rounded-xl">
           <button
             onClick={() => setActiveTab('create')}
@@ -202,16 +215,17 @@ const DashboardPage: React.FC = () => {
 
         {activeTab === 'create' ? (
           <>
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-1">Create Roadmap</h2>
-              <p className="text-sm text-slate-500">Define your learning objective.</p>
+            <div className="maplio-section-header">
+              <p className="maplio-section-kicker">Roadmap Studio</p>
+              <h2 className="text-xl font-bold maplio-section-title">Create Roadmap</h2>
+              <p className="text-sm text-muted">Define your learning objective.</p>
             </div>
 
             <div className="space-y-4 flex-grow">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700">What do you want to learn?</label>
                 <textarea
-                  className="maplio-input w-full p-3 rounded-xl outline-none resize-none transition-all"
+                  className="maplio-input maplio-input--area w-full p-3 rounded-xl outline-none resize-none transition-all"
                   rows={4}
                   placeholder="e.g. Become a Full Stack Developer, Learn Machine Learning..."
                   value={goal}
@@ -222,7 +236,7 @@ const DashboardPage: React.FC = () => {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700">Your Current Level</label>
                 <select
-                  className="maplio-input w-full p-3 rounded-xl outline-none transition-all"
+                  className="maplio-input maplio-input--select w-full p-3 rounded-xl outline-none transition-all"
                   value={level}
                   onChange={(e) => setLevel(e.target.value)}
                 >
@@ -239,7 +253,7 @@ const DashboardPage: React.FC = () => {
                     <button
                       key={template.label}
                       onClick={() => setGoalInput(template.goal)}
-                      className="maplio-chip px-3 py-1.5 text-xs font-semibold rounded-full transition"
+                      className="maplio-chip maplio-chip--select px-3 py-1.5 text-xs font-semibold rounded-full transition"
                     >
                       {template.label}
                     </button>
@@ -272,9 +286,10 @@ const DashboardPage: React.FC = () => {
           </>
         ) : (
           <div className="flex flex-col gap-3 flex-grow">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-1">History</h2>
-              <p className="text-sm text-slate-500">Open your saved roadmaps anytime.</p>
+            <div className="maplio-section-header">
+              <p className="maplio-section-kicker">Workspace</p>
+              <h2 className="text-xl font-bold maplio-section-title">History</h2>
+              <p className="text-sm text-muted">Open your saved roadmaps anytime.</p>
             </div>
             <div className="flex flex-col gap-3 overflow-auto flex-grow pr-1">
               {historyStatus === 'loading' && (
@@ -296,7 +311,7 @@ const DashboardPage: React.FC = () => {
                 >
                   <div className="flex items-center justify-between">
                     <div className="text-sm font-semibold text-slate-800">
-                      {item.roadmap?.title || item.goal}
+                      {item.goal || item.roadmap?.title}
                     </div>
                     <History className="w-4 h-4 text-slate-400" />
                   </div>
@@ -309,7 +324,7 @@ const DashboardPage: React.FC = () => {
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2 maplio-action-grid">
           <button
             onClick={handleSave}
             disabled={!roadmap || saveStatus === 'saving'}
@@ -328,7 +343,7 @@ const DashboardPage: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2 maplio-action-grid">
           <button
             onClick={handleExportJson}
             disabled={!roadmap}
@@ -347,7 +362,37 @@ const DashboardPage: React.FC = () => {
           </button>
         </div>
 
-        <div className="flex items-center gap-2">
+        {shareUrl && (
+          <div className="space-y-2">
+            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Share URL</label>
+            <div className="maplio-input flex items-center gap-2 rounded-xl px-3 py-2">
+              <input
+                value={shareUrl}
+                readOnly
+                className="w-full text-xs outline-none bg-transparent"
+              />
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(shareUrl)
+                  } catch (clipboardError) {
+                    setErrorMessage(
+                      clipboardError instanceof Error
+                        ? clipboardError.message
+                        : 'Copy failed. Copy it manually.'
+                    )
+                  }
+                }}
+                className="maplio-button-outline px-2 py-1 rounded-lg text-[10px] font-semibold"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="flex items-center gap-2 maplio-action-row">
           <button
             onClick={() => dispatch(undoNodeMeta())}
             className="maplio-button-outline flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold transition"
@@ -385,18 +430,19 @@ const DashboardPage: React.FC = () => {
       </div>
 
       {/* Main Canvas Area */}
-      <div ref={canvasRef} className="flex-grow rounded-2xl border border-slate-200 overflow-hidden relative shadow-inner maplio-card">
+      <div ref={canvasRef} className="flex-grow rounded-2xl overflow-hidden relative maplio-canvas-shell">
         {status === 'loading' && <LoadingScreen />}
         <RoadmapCanvas />
       </div>
 
-      <div className="hidden lg:flex w-80 flex-shrink-0 maplio-card rounded-2xl p-5 flex-col gap-4">
-        <div>
-          <h3 className="text-lg font-bold text-slate-900">Node Details</h3>
-          <p className="text-xs text-slate-500">Select a node to edit its title, status, and notes.</p>
+      <div className="hidden lg:flex w-80 flex-shrink-0 maplio-card maplio-sidebar maplio-detail-panel rounded-2xl p-5 flex-col gap-4">
+        <div className="maplio-section-header">
+          <p className="maplio-section-kicker">Inspector</p>
+          <h3 className="text-lg font-bold maplio-section-title">Node Details</h3>
+          <p className="text-xs text-muted">Select a node to edit its title, status, and notes.</p>
         </div>
         {!selectedNodeId ? (
-          <div className="text-sm text-slate-500 border border-dashed border-slate-200 rounded-xl p-4">
+          <div className="text-sm text-muted border border-dashed border-slate-200 rounded-xl p-4 maplio-empty-card">
             Click any node on the canvas to edit its details.
           </div>
         ) : (

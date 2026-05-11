@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { clerkAuth } from '../middleware/clerkAuth'
+
 import { requireUser } from '../middleware/requireUser'
 import {
   listRoadmaps,
@@ -15,7 +15,7 @@ const router = Router()
 
 router.get('/public/roadmaps/:shareId', getPublicRoadmap)
 
-router.use('/roadmaps', clerkAuth, requireUser)
+router.use('/roadmaps', requireUser)
 
 router.get('/roadmaps', listRoadmaps as any)
 router.post('/roadmaps', createRoadmap as any)

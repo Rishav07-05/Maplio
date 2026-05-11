@@ -61,7 +61,7 @@ const RoadmapCanvas: React.FC = () => {
   if (!roadmapData) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 maplio-canvas">
-        <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mb-4 shadow-sm">
+        <div className="w-16 h-16 rounded-2xl maplio-card flex items-center justify-center mb-4">
           <Map className="w-8 h-8 text-slate-300" />
         </div>
         <p className="font-medium text-slate-500">Your roadmap will appear here.</p>
@@ -91,12 +91,12 @@ const RoadmapCanvas: React.FC = () => {
         <MiniMap 
           className="maplio-mini-map"
           nodeColor={(n) => {
-            if (n.type === 'customNode') return theme === 'dark' ? '#3b1a78' : '#ffe818'
-            if (n.type === 'subtopicNode') return theme === 'dark' ? '#78c7ff' : '#ffdfa0'
+            if (n.type === 'customNode') return '#4a1685'
+            if (n.type === 'subtopicNode') return '#d5c2ff'
             return '#cbd5e1'
           }}
         />
-        <Panel position="top-left" className="bg-white/80 backdrop-blur border border-slate-200 p-3 rounded-xl shadow-sm max-w-sm">
+        <Panel position="top-left" className="maplio-panel p-3 rounded-xl max-w-sm">
           <div className="flex items-start gap-2">
             <Info className="w-5 h-5 text-indigo-500 mt-0.5" />
             <div>
@@ -106,7 +106,7 @@ const RoadmapCanvas: React.FC = () => {
                 <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-indigo-50 text-indigo-600">
                   {roadmapData.level}
                 </span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-slate-100 text-slate-600">
+                <span className="maplio-duration-pill text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded">
                   {roadmapData.estimated_duration}
                 </span>
               </div>

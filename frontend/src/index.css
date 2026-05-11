@@ -2,21 +2,53 @@
 
 :root {
   color-scheme: light;
-  --maplio-main-node-bg: #ffe818;
-  --maplio-sub-node-bg: #ffdfa0;
-  --maplio-node-text: #0b0b12;
-  --maplio-node-subtext: rgba(11, 11, 18, 0.75);
-  --maplio-node-border: #0b0b12;
-  --maplio-node-chip-bg: rgba(255, 255, 255, 0.7);
-  --maplio-node-chip-ghost-bg: rgba(255, 255, 255, 0.5);
-  --maplio-node-chip-text: #0b0b12;
-  --maplio-node-chip-border: #0b0b12;
-  --maplio-edge-color: #3b82f6;
-  --maplio-brand-bg: #101010;
-  --maplio-brand-fg: #fdf4e3;
-  --maplio-landing-bg: #f6f2ea;
-  --maplio-landing-accent: #ff8a3d;
-  --maplio-auth-bg: #f6f7fb;
+  --maplio-purple-1: #6d28d9;
+  --maplio-purple-2: #7c3aed;
+  --maplio-purple-3: #a78bfa;
+  --maplio-purple-4: #c4b5fd;
+  --maplio-ink: #0b0b16;
+  --maplio-text: #0f1222;
+  --maplio-text-muted: rgba(15, 18, 34, 0.68);
+  --maplio-surface: rgba(255, 255, 255, 0.72);
+  --maplio-surface-strong: rgba(255, 255, 255, 0.9);
+  --maplio-surface-muted: rgba(248, 248, 252, 0.78);
+  --maplio-border: rgba(109, 40, 217, 0.25);
+  --maplio-border-strong: rgba(109, 40, 217, 0.4);
+  --maplio-shadow: 0 24px 50px rgba(15, 10, 45, 0.16);
+  --maplio-shadow-strong: 0 30px 70px rgba(15, 10, 45, 0.24);
+  --maplio-glow: 0 0 0 1px rgba(109, 40, 217, 0.18), 0 14px 32px rgba(109, 40, 217, 0.22);
+  --maplio-main-node-bg: #6d28d9;
+  --maplio-sub-node-bg: #ede9fe;
+  --maplio-node-text: #ffffff;
+  --maplio-node-subtext: rgba(27, 18, 61, 0.78);
+  --maplio-node-border: rgba(109, 40, 217, 0.4);
+  --maplio-node-chip-bg: rgba(255, 255, 255, 0.6);
+  --maplio-node-chip-ghost-bg: rgba(255, 255, 255, 0.35);
+  --maplio-node-chip-text: #1c1336;
+  --maplio-node-chip-border: rgba(109, 40, 217, 0.35);
+  --maplio-edge-color: #7c3aed;
+  --maplio-brand-bg: rgba(109, 40, 217, 0.95);
+  --maplio-brand-fg: #fdfaff;
+  --maplio-landing-bg: #f3f0ff;
+  --maplio-landing-accent: #6d28d9;
+  --maplio-auth-bg: #f3f4ff;
+  --maplio-input-bg: rgba(255, 255, 255, 0.7);
+  --maplio-input-border: rgba(109, 40, 217, 0.35);
+  --maplio-input-focus: #7c3aed;
+  --maplio-input-text: #121528;
+  --maplio-input-placeholder: rgba(18, 21, 40, 0.5);
+  --maplio-primary-bg: #6d28d9;
+  --maplio-primary-bg-hover: #5b21b6;
+  --maplio-primary-text: #f7f2ff;
+  --maplio-outline-border: rgba(109, 40, 217, 0.4);
+  --maplio-outline-text: #3b156a;
+  --maplio-outline-bg: rgba(255, 255, 255, 0.6);
+  --maplio-outline-hover-bg: rgba(109, 40, 217, 0.12);
+  --maplio-chip-bg: rgba(109, 40, 217, 0.1);
+  --maplio-chip-border: rgba(109, 40, 217, 0.35);
+  --maplio-chip-text: #3b156a;
+  --maplio-tab-text: rgba(59, 21, 106, 0.65);
+  --maplio-tab-active: #6d28d9;
 }
 
 html,
@@ -24,16 +56,17 @@ body {
   height: 100%;
   margin: 0;
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  background-color: #f6f7fb;
-  color: #10121a;
+  background-color: #f3f4ff;
+  color: var(--maplio-text);
 }
 
 body {
   min-height: 100%;
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(90, 215, 255, 0.2), transparent 45%),
-    radial-gradient(circle at 85% 10%, rgba(255, 125, 90, 0.2), transparent 40%),
-    linear-gradient(135deg, #f6f7fb 0%, #eef1f8 55%, #f7f9ff 100%);
+    radial-gradient(circle at 12% 18%, rgba(124, 58, 237, 0.2), transparent 45%),
+    radial-gradient(circle at 82% 8%, rgba(196, 181, 253, 0.22), transparent 40%),
+    radial-gradient(circle at 70% 90%, rgba(99, 102, 241, 0.18), transparent 48%),
+    linear-gradient(135deg, #f6f2ff 0%, #eef1ff 55%, #f7f9ff 100%);
   background-attachment: fixed;
 }
 
@@ -64,77 +97,114 @@ body {
   }
 }
 
+@keyframes softFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
 .maplio-grid {
   background-image:
-    linear-gradient(transparent 95%, rgba(10, 12, 20, 0.08) 96%),
-    linear-gradient(90deg, transparent 95%, rgba(10, 12, 20, 0.08) 96%);
-  background-size: 38px 38px;
+    linear-gradient(transparent 95%, rgba(109, 40, 217, 0.08) 96%),
+    linear-gradient(90deg, transparent 95%, rgba(109, 40, 217, 0.08) 96%);
+  background-size: 40px 40px;
 }
 
 .maplio-canvas {
-  background-color: #faf7f0;
+  background-color: #f7f5ff;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(60, 64, 75, 0.16) 1px, transparent 0),
-    radial-gradient(circle at 1px 1px, rgba(120, 124, 135, 0.12) 1px, transparent 0),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(250, 247, 240, 0.95));
+    radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.16) 1px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(124, 58, 237, 0.12) 1px, transparent 0),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(246, 243, 255, 0.95));
   background-size: 28px 28px, 140px 140px, auto;
   background-position: 0 0, 14px 14px, 0 0;
 }
 
 .theme-dark .maplio-canvas {
-  background-color: #0b0f17;
+  background-color: #0b0d18;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.2) 1px, transparent 0),
-    radial-gradient(circle at 1px 1px, rgba(51, 65, 85, 0.35) 1px, transparent 0),
-    linear-gradient(180deg, rgba(5, 8, 16, 0.95), rgba(11, 15, 23, 0.98));
+    radial-gradient(circle at 1px 1px, rgba(165, 180, 252, 0.2) 1px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(76, 29, 149, 0.35) 1px, transparent 0),
+    linear-gradient(180deg, rgba(7, 10, 20, 0.96), rgba(11, 14, 25, 0.99));
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--maplio-surface);
   border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 20px 45px rgba(12, 20, 40, 0.15);
+  box-shadow: var(--maplio-shadow);
   backdrop-filter: blur(24px);
 }
 
 .glass-dark {
-  background: rgba(13, 18, 28, 0.7);
+  background: rgba(12, 16, 28, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 45px rgba(4, 8, 16, 0.6);
+  box-shadow: var(--maplio-shadow-strong);
   backdrop-filter: blur(22px);
 }
 
 .theme-dark {
   color-scheme: dark;
   background-color: #05060a;
-  color: #e9eef7;
-  --maplio-main-node-bg: #3b1a78;
-  --maplio-sub-node-bg: #78c7ff;
+  color: #eef1ff;
+  --maplio-text: #eef1ff;
+  --maplio-text-muted: rgba(238, 241, 255, 0.68);
+  --maplio-surface: rgba(14, 18, 32, 0.7);
+  --maplio-surface-strong: rgba(12, 16, 28, 0.92);
+  --maplio-surface-muted: rgba(16, 21, 36, 0.72);
+  --maplio-border: rgba(167, 139, 250, 0.35);
+  --maplio-border-strong: rgba(167, 139, 250, 0.5);
+  --maplio-shadow: 0 22px 60px rgba(3, 6, 16, 0.7);
+  --maplio-shadow-strong: 0 26px 80px rgba(2, 6, 12, 0.75);
+  --maplio-glow: 0 0 0 1px rgba(167, 139, 250, 0.3), 0 12px 34px rgba(109, 40, 217, 0.4);
+  --maplio-main-node-bg: #7c3aed;
+  --maplio-sub-node-bg: rgba(76, 29, 149, 0.65);
   --maplio-node-text: #ffffff;
-  --maplio-node-subtext: rgba(255, 255, 255, 0.75);
-  --maplio-node-border: #0b0b12;
-  --maplio-node-chip-bg: rgba(15, 23, 42, 0.35);
-  --maplio-node-chip-ghost-bg: rgba(15, 23, 42, 0.45);
-  --maplio-node-chip-text: #ffffff;
-  --maplio-node-chip-border: rgba(255, 255, 255, 0.4);
-  --maplio-edge-color: #9bb7ff;
-  --maplio-brand-bg: #e9eef7;
-  --maplio-brand-fg: #0b0f17;
-  --maplio-landing-bg: #0b0f17;
-  --maplio-landing-accent: #7dd3fc;
-  --maplio-auth-bg: #0b0f17;
+  --maplio-node-subtext: rgba(233, 238, 247, 0.75);
+  --maplio-node-border: rgba(167, 139, 250, 0.45);
+  --maplio-node-chip-bg: rgba(15, 23, 42, 0.45);
+  --maplio-node-chip-ghost-bg: rgba(15, 23, 42, 0.55);
+  --maplio-node-chip-text: #f8f6ff;
+  --maplio-node-chip-border: rgba(167, 139, 250, 0.5);
+  --maplio-edge-color: #a78bfa;
+  --maplio-brand-bg: rgba(124, 58, 237, 0.9);
+  --maplio-brand-fg: #fdfbff;
+  --maplio-landing-bg: #0b0d18;
+  --maplio-landing-accent: #c4b5fd;
+  --maplio-auth-bg: #0b0d18;
+  --maplio-input-bg: rgba(16, 21, 36, 0.8);
+  --maplio-input-border: rgba(167, 139, 250, 0.55);
+  --maplio-input-focus: #c4b5fd;
+  --maplio-input-text: #eef1ff;
+  --maplio-input-placeholder: rgba(233, 238, 247, 0.55);
+  --maplio-primary-bg: #7c3aed;
+  --maplio-primary-bg-hover: #6d28d9;
+  --maplio-primary-text: #f7f2ff;
+  --maplio-outline-border: rgba(167, 139, 250, 0.6);
+  --maplio-outline-text: #f0eaff;
+  --maplio-outline-bg: rgba(15, 20, 36, 0.7);
+  --maplio-outline-hover-bg: rgba(167, 139, 250, 0.18);
+  --maplio-chip-bg: rgba(167, 139, 250, 0.18);
+  --maplio-chip-border: rgba(167, 139, 250, 0.5);
+  --maplio-chip-text: #f1eaff;
+  --maplio-tab-text: rgba(232, 234, 248, 0.7);
+  --maplio-tab-active: #c4b5fd;
 }
 
 .theme-dark body {
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(90, 215, 255, 0.25), transparent 40%),
-    radial-gradient(circle at 85% 10%, rgba(255, 125, 90, 0.25), transparent 40%),
-    linear-gradient(135deg, #05060a 0%, #0b0f17 55%, #111827 100%);
+    radial-gradient(circle at 12% 18%, rgba(124, 58, 237, 0.3), transparent 40%),
+    radial-gradient(circle at 82% 8%, rgba(196, 181, 253, 0.22), transparent 40%),
+    radial-gradient(circle at 70% 90%, rgba(79, 70, 229, 0.28), transparent 48%),
+    linear-gradient(135deg, #05060a 0%, #0b0d18 55%, #121528 100%);
 }
 
 .theme-dark .glass {
-  background: rgba(13, 18, 28, 0.7);
+  background: var(--maplio-surface);
   border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 45px rgba(4, 8, 16, 0.6);
+  box-shadow: var(--maplio-shadow-strong);
 }
 
 .theme-dark .bg-white {
@@ -177,7 +247,7 @@ body {
 }
 
 .text-muted {
-  color: rgba(16, 18, 26, 0.68);
+  color: var(--maplio-text-muted);
 }
 
 .theme-dark .text-muted {
@@ -197,6 +267,22 @@ body {
   border-style: solid;
 }
 
+.maplio-node--main,
+.maplio-node--sub {
+  border-width: 1.5px;
+  border-radius: 16px;
+  box-shadow: var(--maplio-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.maplio-node--main:hover,
+.maplio-node--sub:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--maplio-shadow-strong);
+  border-color: var(--maplio-border-strong);
+}
+
 .maplio-node-main {
   background-color: var(--maplio-main-node-bg);
 }
@@ -209,7 +295,19 @@ body {
   color: var(--maplio-node-text);
 }
 
+.maplio-node-main .maplio-node-text {
+  color: #ffffff;
+}
+
+.maplio-node-sub .maplio-node-text {
+  color: #1c1336;
+}
+
 .maplio-node-subtext {
+  color: var(--maplio-node-subtext);
+}
+
+.maplio-node-sub .maplio-node-subtext {
   color: var(--maplio-node-subtext);
 }
 
@@ -226,21 +324,21 @@ body {
 }
 
 .maplio-flow-controls {
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #0b0b12;
-  border-radius: 10px;
+  background: var(--maplio-surface-strong);
+  border: 1px solid var(--maplio-border);
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+  box-shadow: var(--maplio-shadow);
 }
 
 .maplio-flow-controls button {
-  border-bottom: 2px solid #0b0b12;
+  border-bottom: 1px solid var(--maplio-border);
 }
 
 .theme-dark .maplio-flow-controls {
-  background: rgba(15, 23, 42, 0.88);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 12px 24px rgba(4, 8, 16, 0.55);
+  background: var(--maplio-surface-strong);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: var(--maplio-shadow-strong);
 }
 
 .theme-dark .maplio-flow-controls button {
@@ -248,16 +346,41 @@ body {
 }
 
 .maplio-mini-map {
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #0b0b12;
-  border-radius: 10px;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+  background: var(--maplio-surface-strong);
+  border: 1px solid var(--maplio-border);
+  border-radius: 12px;
+  box-shadow: var(--maplio-shadow);
 }
 
 .theme-dark .maplio-mini-map {
-  background: rgba(15, 23, 42, 0.9);
+  background: var(--maplio-surface-strong);
   border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 4px 4px 0 rgba(2, 6, 12, 0.8);
+  box-shadow: var(--maplio-shadow-strong);
+}
+
+.maplio-overlay {
+  background: rgba(10, 12, 20, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.theme-dark .maplio-overlay {
+  background: rgba(2, 6, 12, 0.65);
+}
+
+.maplio-card {
+  background: var(--maplio-surface-strong);
+  border: 1px solid rgba(109, 40, 217, 0.14);
+  box-shadow: var(--maplio-shadow);
+}
+
+.theme-dark .maplio-card {
+  background: var(--maplio-surface-strong);
+  border-color: rgba(167, 139, 250, 0.2);
+  box-shadow: var(--maplio-shadow-strong);
+}
+
+.maplio-card--floating {
+  border: 1px solid rgba(109, 40, 217, 0.2);
 }
 
 .maplio-theme-toggle {
@@ -265,26 +388,28 @@ body {
   align-items: center;
   gap: 8px;
   border-radius: 999px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  color: #0f172a;
-  font-size: 12px;
+  padding: 6px 14px;
+  background: var(--maplio-surface);
+  border: 1px solid var(--maplio-border);
+  color: var(--maplio-text);
+  font-size: 11px;
   font-weight: 600;
-  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.12em;
+  box-shadow: var(--maplio-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .maplio-theme-toggle:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
+  border-color: var(--maplio-border-strong);
+  box-shadow: var(--maplio-shadow-strong);
 }
 
 .theme-dark .maplio-theme-toggle {
-  background: rgba(15, 23, 42, 0.9);
+  background: var(--maplio-surface);
   border-color: rgba(255, 255, 255, 0.12);
-  color: #e2e8f0;
-  box-shadow: 0 8px 18px rgba(4, 8, 16, 0.6);
+  color: #eef1ff;
+  box-shadow: var(--maplio-shadow-strong);
 }
 
 .maplio-theme-toggle__icon {
@@ -294,35 +419,68 @@ body {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: rgba(15, 23, 42, 0.08);
+  background: rgba(109, 40, 217, 0.12);
 }
 
 .theme-dark .maplio-theme-toggle__icon {
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(167, 139, 250, 0.2);
 }
 
 .maplio-theme-toggle__label {
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.18em;
+}
+
+.maplio-duration-pill {
+  background: rgba(109, 40, 217, 0.14);
+  color: #5b21b6;
+}
+
+.theme-dark .maplio-duration-pill {
+  background: rgba(167, 139, 250, 0.22);
+  color: #efe6ff;
 }
 
 .maplio-app-shell {
-  background: #f3f4f7;
+  background: transparent;
 }
 
 .theme-dark .maplio-app-shell {
-  background: #0b0f17;
+  background: transparent;
 }
 
 .maplio-app-header {
-  background: rgba(255, 255, 255, 0.88);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.1);
-  backdrop-filter: blur(18px);
+  background: var(--maplio-surface-strong);
+  border-bottom: 1px solid rgba(109, 40, 217, 0.12);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 16px 40px rgba(18, 12, 40, 0.08);
 }
 
 .theme-dark .maplio-app-header {
-  background: rgba(15, 23, 42, 0.88);
+  background: var(--maplio-surface-strong);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.maplio-brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(124, 58, 237, 0.9), rgba(109, 40, 217, 0.8));
+  color: #fdfbff;
+  box-shadow: var(--maplio-glow);
+}
+
+.maplio-brand-mark--sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.maplio-brand-text {
+  color: var(--maplio-text);
 }
 
 .maplio-landing {
@@ -353,7 +511,7 @@ body {
   height: 45%;
   top: -18%;
   left: -10%;
-  background: rgba(255, 138, 61, 0.35);
+  background: rgba(124, 58, 237, 0.3);
 }
 
 .maplio-orb--two {
@@ -361,7 +519,7 @@ body {
   height: 40%;
   top: 8%;
   right: -12%;
-  background: rgba(52, 211, 153, 0.3);
+  background: rgba(196, 181, 253, 0.32);
 }
 
 .maplio-orb--three {
@@ -369,19 +527,19 @@ body {
   height: 55%;
   bottom: -20%;
   left: 15%;
-  background: rgba(250, 204, 21, 0.28);
+  background: rgba(99, 102, 241, 0.2);
 }
 
 .theme-dark .maplio-orb--one {
-  background: rgba(125, 211, 252, 0.35);
+  background: rgba(124, 58, 237, 0.35);
 }
 
 .theme-dark .maplio-orb--two {
-  background: rgba(129, 140, 248, 0.25);
+  background: rgba(167, 139, 250, 0.25);
 }
 
 .theme-dark .maplio-orb--three {
-  background: rgba(253, 186, 116, 0.2);
+  background: rgba(99, 102, 241, 0.2);
 }
 
 .maplio-brand-badge {
@@ -393,7 +551,7 @@ body {
   justify-content: center;
   background: var(--maplio-brand-bg);
   color: var(--maplio-brand-fg);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.7);
+  box-shadow: var(--maplio-glow);
 }
 
 .maplio-landing-accent {
@@ -406,15 +564,15 @@ body {
   gap: 8px;
   padding: 8px 16px;
   border-radius: 999px;
-  border: 2px solid #0b0b12;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--maplio-border);
+  background: var(--maplio-surface);
+  box-shadow: var(--maplio-shadow);
 }
 
 .theme-dark .maplio-pill {
   border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(15, 23, 42, 0.9);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+  background: var(--maplio-surface);
+  box-shadow: var(--maplio-shadow-strong);
 }
 
 .maplio-cta-solid {
@@ -424,23 +582,23 @@ body {
   gap: 8px;
   padding: 16px 32px;
   border-radius: 999px;
-  background: #0b0b12;
-  color: #fdf4e3;
+  background: linear-gradient(135deg, #6d28d9, #7c3aed, #8b5cf6);
+  color: #fdfaff;
   font-weight: 600;
   font-size: 18px;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+  box-shadow: var(--maplio-glow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .maplio-cta-solid:hover {
   transform: translateY(-2px);
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
+  box-shadow: var(--maplio-shadow-strong);
 }
 
 .theme-dark .maplio-cta-solid {
-  background: #e9eef7;
-  color: #0b0b12;
-  box-shadow: 6px 6px 0 rgba(2, 6, 12, 0.8);
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fdfaff;
+  box-shadow: var(--maplio-glow);
 }
 
 .maplio-cta-outline {
@@ -450,11 +608,12 @@ body {
   gap: 8px;
   padding: 12px 20px;
   border-radius: 999px;
-  border: 2px solid #0b0b12;
-  color: #0b0b12;
+  border: 1px solid var(--maplio-border-strong);
+  color: var(--maplio-text);
   font-weight: 600;
   font-size: 14px;
-  transition: background 0.2s ease, color 0.2s ease;
+  background: var(--maplio-surface);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .maplio-cta-outline--wide {
@@ -463,39 +622,282 @@ body {
 }
 
 .maplio-cta-outline:hover {
-  background: #0b0b12;
-  color: #fdf4e3;
+  background: rgba(109, 40, 217, 0.12);
+  color: #2b0f52;
+  border-color: rgba(109, 40, 217, 0.6);
 }
 
 .theme-dark .maplio-cta-outline {
-  border-color: rgba(255, 255, 255, 0.7);
-  color: #e9eef7;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #eef1ff;
 }
 
 .theme-dark .maplio-cta-outline:hover {
-  background: #e9eef7;
-  color: #0b0b12;
+  background: rgba(167, 139, 250, 0.2);
+  color: #f8f6ff;
 }
 
 .maplio-auth {
   background: var(--maplio-auth-bg);
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(125, 211, 252, 0.25), transparent 40%),
-    radial-gradient(circle at 80% 10%, rgba(249, 115, 22, 0.2), transparent 45%),
-    linear-gradient(135deg, rgba(246, 247, 251, 0.95) 0%, rgba(239, 242, 248, 0.95) 60%, rgba(247, 249, 255, 0.95) 100%);
+    radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.2), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(196, 181, 253, 0.22), transparent 45%),
+    linear-gradient(135deg, rgba(244, 244, 255, 0.95) 0%, rgba(237, 239, 250, 0.95) 60%, rgba(247, 249, 255, 0.95) 100%);
 }
 
 .theme-dark .maplio-auth {
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(125, 211, 252, 0.25), transparent 40%),
-    radial-gradient(circle at 80% 10%, rgba(249, 115, 22, 0.2), transparent 45%),
-    linear-gradient(135deg, rgba(5, 6, 10, 0.95) 0%, rgba(11, 15, 23, 0.98) 60%, rgba(17, 24, 39, 0.98) 100%);
+    radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.25), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(167, 139, 250, 0.2), transparent 45%),
+    linear-gradient(135deg, rgba(5, 6, 10, 0.95) 0%, rgba(11, 14, 24, 0.98) 60%, rgba(18, 21, 40, 0.98) 100%);
 }
 
 .maplio-auth-card {
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(109, 40, 217, 0.2);
 }
 
 .theme-dark .maplio-auth-card {
   border-color: rgba(255, 255, 255, 0.12);
+}
+
+.maplio-input {
+  background: var(--maplio-input-bg);
+  border: 1px solid var(--maplio-input-border);
+  color: var(--maplio-input-text);
+  box-shadow: 0 12px 26px rgba(30, 16, 64, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.maplio-input input,
+.maplio-input textarea,
+.maplio-input select {
+  color: inherit;
+}
+
+.maplio-input input::placeholder,
+.maplio-input textarea::placeholder,
+.maplio-input::placeholder {
+  color: var(--maplio-input-placeholder);
+}
+
+.maplio-input:focus-within,
+.maplio-input:focus {
+  border-color: var(--maplio-input-focus);
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2), 0 12px 30px rgba(109, 40, 217, 0.18);
+}
+
+.theme-dark .maplio-input:focus-within,
+.theme-dark .maplio-input:focus {
+  box-shadow: 0 0 0 2px rgba(196, 181, 253, 0.3), 0 12px 30px rgba(109, 40, 217, 0.25);
+}
+
+.maplio-primary {
+  background: linear-gradient(135deg, var(--maplio-primary-bg), #8b5cf6);
+  border: 1px solid rgba(109, 40, 217, 0.6);
+  color: var(--maplio-primary-text);
+  box-shadow: var(--maplio-glow);
+}
+
+.maplio-primary:hover {
+  background: linear-gradient(135deg, var(--maplio-primary-bg-hover), #7c3aed);
+  border-color: rgba(109, 40, 217, 0.8);
+}
+
+.maplio-button-outline {
+  background: var(--maplio-outline-bg);
+  border: 1px solid var(--maplio-outline-border);
+  color: var(--maplio-outline-text);
+  box-shadow: 0 10px 24px rgba(20, 12, 45, 0.12);
+}
+
+.maplio-button-outline:hover {
+  background: var(--maplio-outline-hover-bg);
+  border-color: var(--maplio-border-strong);
+}
+
+.maplio-chip {
+  background: var(--maplio-chip-bg);
+  border: 1px solid var(--maplio-chip-border);
+  border-radius: 999px;
+  color: var(--maplio-chip-text);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.maplio-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(109, 40, 217, 0.18);
+}
+
+.maplio-chip--select {
+  background: rgba(124, 58, 237, 0.12);
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.maplio-tab-wrap {
+  background: var(--maplio-surface-muted);
+  border: 1px solid var(--maplio-outline-border);
+  box-shadow: 0 12px 28px rgba(20, 12, 45, 0.12);
+}
+
+.maplio-tab-wrap button {
+  color: var(--maplio-tab-text);
+}
+
+.maplio-tab-wrap button:hover {
+  color: var(--maplio-tab-active);
+}
+
+.maplio-tab-active {
+  background: rgba(109, 40, 217, 0.12);
+  color: var(--maplio-tab-active);
+  box-shadow: inset 0 -2px 0 var(--maplio-tab-active);
+}
+
+.maplio-list-item {
+  background: var(--maplio-surface-muted);
+  border: 1px solid rgba(109, 40, 217, 0.12);
+  box-shadow: 0 10px 22px rgba(17, 12, 40, 0.1);
+}
+
+.maplio-list-item:hover {
+  border-color: rgba(109, 40, 217, 0.4);
+  box-shadow: 0 14px 28px rgba(17, 12, 40, 0.16);
+}
+
+.maplio-control-panel {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(243, 237, 255, 0.8));
+  border: 1px solid rgba(109, 40, 217, 0.2);
+}
+
+.theme-dark .maplio-control-panel {
+  background: linear-gradient(160deg, rgba(12, 16, 28, 0.95), rgba(22, 14, 44, 0.85));
+}
+
+.maplio-detail-panel {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(239, 237, 255, 0.85));
+}
+
+.theme-dark .maplio-detail-panel {
+  background: linear-gradient(165deg, rgba(12, 16, 28, 0.95), rgba(20, 16, 40, 0.85));
+}
+
+.maplio-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.maplio-section-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(109, 40, 217, 0.7);
+}
+
+.theme-dark .maplio-section-kicker {
+  color: rgba(196, 181, 253, 0.8);
+}
+
+.maplio-section-title {
+  color: var(--maplio-text);
+}
+
+.maplio-input--area {
+  min-height: 110px;
+}
+
+.maplio-input--select {
+  background-image: linear-gradient(135deg, rgba(109, 40, 217, 0.06), rgba(255, 255, 255, 0));
+}
+
+.maplio-action-grid {
+  background: rgba(109, 40, 217, 0.06);
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(109, 40, 217, 0.16);
+}
+
+.theme-dark .maplio-action-grid {
+  background: rgba(124, 58, 237, 0.1);
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+.maplio-action-row {
+  background: rgba(109, 40, 217, 0.08);
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(109, 40, 217, 0.16);
+}
+
+.theme-dark .maplio-action-row {
+  background: rgba(124, 58, 237, 0.12);
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+.maplio-empty-card {
+  background: rgba(109, 40, 217, 0.06);
+  border-color: rgba(109, 40, 217, 0.2);
+}
+
+.maplio-alert {
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  color: #9f1239;
+  box-shadow: 0 12px 24px rgba(159, 18, 57, 0.16);
+}
+
+.theme-dark .maplio-alert {
+  background: rgba(248, 113, 113, 0.15);
+  border-color: rgba(248, 113, 113, 0.35);
+  color: #fecdd3;
+}
+
+.maplio-sidebar {
+  background: var(--maplio-surface-strong);
+  border: 1px solid rgba(109, 40, 217, 0.15);
+  box-shadow: var(--maplio-shadow);
+}
+
+.maplio-canvas-shell {
+  background: var(--maplio-surface-strong);
+  border: 1px solid rgba(109, 40, 217, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4), var(--maplio-shadow);
+}
+
+.maplio-panel {
+  background: var(--maplio-surface);
+  border: 1px solid var(--maplio-border);
+  box-shadow: var(--maplio-shadow);
+  backdrop-filter: blur(16px);
+}
+
+.maplio-shared-shell {
+  background: transparent;
+}
+
+.maplio-shared-header {
+  background: var(--maplio-surface-strong);
+  border-bottom: 1px solid rgba(109, 40, 217, 0.15);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 16px 40px rgba(18, 12, 40, 0.08);
+}
+
+.maplio-shared-title {
+  color: var(--maplio-text);
+}
+
+.maplio-shared-badge {
+  background: rgba(109, 40, 217, 0.12);
+  border: 1px solid rgba(109, 40, 217, 0.3);
+  color: #4c1d95;
+}
+
+.theme-dark .maplio-shared-badge {
+  color: #f3e8ff;
+}
+
+.maplio-loader {
+  border-color: rgba(124, 58, 237, 0.2);
+  border-top-color: rgba(124, 58, 237, 0.9);
 }

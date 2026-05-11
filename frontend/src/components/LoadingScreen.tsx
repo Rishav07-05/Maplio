@@ -14,15 +14,15 @@ const LoadingScreen: React.FC = () => {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 border-4 border-indigo-100 border-t-indigo-500 rounded-full"
+            className="absolute inset-0 border-4 rounded-full maplio-loader"
           />
-          <BrainCircuit className="w-8 h-8 text-indigo-600 animate-pulse" />
+          <BrainCircuit className="w-8 h-8 text-violet-500 animate-pulse" />
           <motion.div
             animate={{ opacity: [0, 1, 0], scale: [0.8, 1.2, 0.8] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="absolute -top-1 -right-1"
           >
-            <Sparkles className="w-4 h-4 text-purple-400" />
+            <Sparkles className="w-4 h-4 text-violet-400" />
           </motion.div>
         </div>
         

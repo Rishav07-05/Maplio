@@ -11,13 +11,17 @@ const SharedRoadmapPage: React.FC = () => {
   const { shareId } = useParams()
   const dispatch = useDispatch<AppDispatch>()
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
+  const [roadmapTitle, setRoadmapTitle] = useState<string>('Shared Roadmap')
 
   useEffect(() => {
     const load = async () => {
       if (!shareId) return
       try {
         const doc = await fetchPublicRoadmap(shareId)
-        dispatch(setRoadmap(doc))
+        console.log(doc)
+        console.log(doc.roadmap)
+        dispatch(setRoadmap(doc.roadmap))
+        setRoadmapTitle(doc.goal || doc.roadmap?.title || 'Shared Roadmap')
         setStatus('ready')
       } catch (error) {
         setStatus('error')
@@ -27,26 +31,46 @@ const SharedRoadmapPage: React.FC = () => {
   }, [dispatch, shareId])
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col">
-      <header className="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-            <Map className="w-5 h-5 text-white" />
+    <div className="min-h-screen maplio-shared-shell flex flex-col font-sans">
+      <header className="maplio-shared-header h-16 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-50">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 transition-opacity hover:opacity-80">
+          <div className="maplio-brand-mark maplio-brand-mark--sm">
+            <Map className="w-4 h-4 text-white" />
           </div>
-          <h1 className="text-lg font-bold text-slate-800 tracking-tight">Maplio</h1>
+          <h1 className="text-xl font-extrabold maplio-brand-text tracking-tight hidden sm:block">Maplio</h1>
         </Link>
-        <div className="text-sm text-slate-500">Shared roadmap</div>
+        <div className="flex-grow flex justify-center px-4">
+          <div className="text-sm sm:text-base font-semibold maplio-shared-title truncate max-w-[200px] sm:max-w-md">
+            {roadmapTitle}
+          </div>
+        </div>
+        <div className="flex items-center gap-3 text-xs sm:text-sm font-medium maplio-shared-badge px-3 py-1.5 rounded-full">
+          Public View
+        </div>
       </header>
 
-      <main className="flex-grow p-4 md:p-6">
+      <main className="flex-grow p-3 sm:p-4 md:p-6 flex flex-col">
         {status === 'loading' && (
-          <div className="text-slate-500">Loading shared roadmap...</div>
+          <div className="flex-grow flex items-center justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-8 h-8 border-4 rounded-full animate-spin maplio-loader"></div>
+              <p className="text-sm font-medium text-muted animate-pulse">Loading shared roadmap...</p>
+            </div>
+          </div>
         )}
         {status === 'error' && (
-          <div className="text-slate-500">Shared roadmap not found.</div>
+          <div className="flex-grow flex items-center justify-center">
+            <div className="maplio-card maplio-alert rounded-2xl p-6 text-center max-w-sm">
+              <h3 className="text-lg font-bold mb-2">Roadmap Not Found</h3>
+              <p className="text-sm mb-4">The link might be broken or the roadmap is no longer public.</p>
+              <Link to="/" className="inline-flex items-center justify-center maplio-button-outline font-semibold text-sm px-4 py-2 rounded-xl transition">
+                Create Your Own
+              </Link>
+            </div>
+          </div>
         )}
         {status === 'ready' && (
-          <div className="h-[calc(100vh-120px)] rounded-2xl border border-slate-200 overflow-hidden shadow-inner">
+          <div className="flex-grow w-full rounded-2xl overflow-hidden min-h-[500px] maplio-canvas-shell">
             <RoadmapCanvas />
           </div>
         )}
